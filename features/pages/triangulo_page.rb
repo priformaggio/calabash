@@ -96,22 +96,6 @@ class TrianguloPage < Calabash::ABase
 
   def assert_message
     return  element_exists(txtResultado)
-    
   end
 
-  def assert_message_isósceles
-    if element_exists(txtResultado && text="O triângulo é Isósceles")
-      return true
-    else
-      return false
-    end
-  end
-
-  def assert_message_escaleno
-    if element_exists(txtResultado && text="O triângulo é Escaleno")
-      return true
-    else
-      return false
-    end
-  end
 end
