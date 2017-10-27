@@ -1,0 +1,96 @@
+ANDROID AUTOMATION
+
+Calabash is a automated tests framework that uses Cucumber(BDD/Gherkin) and is based Ruby programation language
+
+Configuration:
+
+# Open your terminal and navigate to a directory and clone the repository:
+  https://github.com/priformaggio/calabash.git
+
+# Download the JDK version:
+  http://www.oracle.com/technetwork/java/javase/downloads/index.html
+  Setup the jdk in your /etc/bash.bashrc like this:
+
+  #JAVA_HOME
+  export JAVA_HOME=/opt/java/jdk-9.0.1
+
+
+# Download the Android Version(LINUX):
+  wget http://dl.google.com/android/android-sdk_r24.2-linux.tgz
+  tar -xvf android-sdk_r24.2-linux.tgz
+
+# Install all sdk packages(LINUX):
+cd android-sdk-linux/tools
+./android update sdk --no-ui
+
+# Set android-sdk path(LINUX):
+sudo nano ~/.bashrc
+
+# Add these lines on top, save, and exit like this
+ #ANDROID_HOME
+ export ANDROID_HOME=/home/priscila/android-sdk-linux
+ export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.1/aapt
+
+# Reload bashrc
+ source ~/.bashrc
+
+# If your system does not recognize adb devices, Install adb:
+ sudo apt-get install adb
+
+# If you want use the emulator through android-studio, download:
+ https://developer.android.com/studio/index.html
+
+ To execute: cd android-studio/bin/
+ Then: ./studio.sh
+
+# Install RVM and download Ruby version 2.3.0 or higher:
+ \curl -sSL https://get.rvm.io | bash
+
+# After you installed the RVM refresh your dotfile:
+ source ~/.bashrc
+
+# Now just install ruby:
+ rvm install 2.3.0
+
+# Install calabash-android:
+ sudo gem install calabash-android
+
+# Install the Bundler gem:
+ gem install bundler
+
+# Navigate to the project directory, create your Gemfile and install the dependencies:
+ bundle install
+
+# Check if you have a device connected or an emulator running to test
+ adb devices
+
+# If is a new app, is necessary to resign:
+ calabash-android resign apps/android/app-napps-v1.apk
+
+# To start the server:
+ calabash-android console apps/android/app-napps-v1.apk
+ start_test_server_in_background
+
+# To execute the tests, just run the following command:
+ Don't forget to replace the app
+ calabash-android run apps/android/app-napps-v1.apk
+
+
+############ PROBLEMS THAT WILL BE HAPPEN ##############
+
+# In case you got an exception about Android SDK not found when you tried to execute the tests. Certify that your bashrc is pointing out to the right path and/or you have Java JDK 8+ installed:
+
+  export PATH=$PATH:$HOME/Tools/android-sdk/
+  export PATH=$PATH:$ANDROID_HOME/platform-tools/
+  export PATH=$PATH:$ANDROID_HOME/build-tools/23.0.1/aapt
+  export PATH=$PATH:$ANDROID_HOME/tools/
+
+
+# If you have problems with vendor/cache, you have to delete the hidden folder .bundle in your project and system.
+
+  For more informations: https://stackoverflow.com/questions/9452760/rails-bundler-how-to-undo-bundle-package
+
+# If you have problems about the debug.keystore or keytool error:
+
+  http://www.guj.com.br/t/erro-de-keytool-java-lang-illegalargumentexception-unknown-format-type-at/244573/7
+  https://github.com/calabash/calabash-android/wiki/Running-Calabash-Android
